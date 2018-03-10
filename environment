@@ -1,0 +1,7 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
+# GTK styling in QT applications
+QT_QPA_PLATFORMTHEME=gtk2
+
+# Wayland needs specifying vdpau driver
+VDPAU_DRIVER=radeonsi
