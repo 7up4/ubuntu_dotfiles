@@ -1,0 +1,10 @@
+[Unit]
+Description=Fix for hibernation problem
+
+[Service]
+Type=simple
+ExecStart=/sbin/modprobe radeon
+StandardOutput=syslog
+
+[Install]
+WantedBy=multi-user.target
