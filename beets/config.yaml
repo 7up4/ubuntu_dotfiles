@@ -1,0 +1,116 @@
+# Beets configuration --------------------------------------------------------
+
+directory: ~/Music
+library: ~/Music/.data/music_library.db
+
+import:
+      # write metadata to music files
+      write: yes
+
+      # copy imported files from source to the music directory
+      move: yes
+      copy: no
+      delete: no
+
+      # use auto-tagging where possible
+      # do not require confirmation on strong matches
+      autotag: yes
+      timid: no
+
+      resume: ask
+      incremental: no
+      none_rec_action: ask
+
+      quiet: no  # enable with command line option
+      quiet_fallback: skip
+      default_action: apply
+
+      languages: []
+      detail: no
+      flat: no
+
+# use the release-date of the original (first) release of an album?
+original_date: no
+
+# on multi-disk releases, assign track numbers for the whole album.
+# If "per disk", make sure tracknames do not collide ("paths" setting).
+per_disc_numbering: no
+
+# files matching these patterns are deleted from source after import
+clutter: ["Thumbs.DB", ".DS_Store", "*.m3u", ".pls", "*.jpg"]
+
+# files/directories matching one of these patterns are ignored during import
+ignore: [".*", "*~", "System Volume Information"]
+
+# Paths ----------------------------------------------------------------------
+paths:
+    default: Albums/$albumartist/$album ($year)%aunique{}/$track. $title
+    singleton: Singles/$albumartist/$album ($year)%aunique{}/$track. $title
+    comp: Compilations/$album ($year)%aunique{}/$track. $title
+    albumtype:soundtrack: Soundtracks/$album ($year)/$track. $title
+
+replace:
+    '[\\/]': _
+    '^\.': _
+    '[\x00-\x1f]': _
+    '\s+$': ''
+    '^\s+': ''
+
+max_filename_length: 0  # unlimited
+
+# General --------------------------------------------------------------------
+
+# use mutliple threads during import
+threaded: yes
+verbose: no
+
+# Plugins --------------------------------------------------------------------
+
+plugins: [
+    discogs,
+    duplicates,
+    lyrics,
+    fetchart,
+    fromfilename,
+    ftintitle,
+    #gmusic,
+    embedart,
+    lastgenre,
+    mbsync,
+    missing,
+    random,
+    scrub,
+    types
+]
+pluginpath: []
+
+# Plugins Config -------------------------------------------------------------
+
+fetchart:
+  auto: yes
+  sources: filesystem amazon coverart albumart
+
+ftintitle:
+  auto: yes
+  format: (feat. {0})
+
+lyrics:
+  auto: yes
+  fallback: ''
+  sources: '*'
+
+lastgenre:
+  canoncical: yes
+  source: album
+
+replaygain:
+  auto: yes
+  backend: gstreamer
+  overwrite: yes
+  albumgain: yes
+
+scrub:
+  auto: yes
+
+types:
+  rating: int
