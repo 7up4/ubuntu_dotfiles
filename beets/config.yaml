@@ -2,6 +2,7 @@
 
 directory: ~/Music
 library: ~/Music/.data/music_library.db
+art_filename: cover
 
 import:
       # write metadata to music files
@@ -67,13 +68,14 @@ verbose: no
 # Plugins --------------------------------------------------------------------
 
 plugins: [
+    convert,
     discogs,
     duplicates,
     lyrics,
     fetchart,
     fromfilename,
     ftintitle,
-    #gmusic,
+    # gmusic,
     embedart,
     lastgenre,
     mbsync,
@@ -86,9 +88,17 @@ pluginpath: []
 
 # Plugins Config -------------------------------------------------------------
 
+convert:
+  auto: no
+  ffmpeg: /usr/bin/ffmpeg
+  opts: -ab 320k -ac 2 -ar 48000
+  max_bitrate: 320
+  threads: 2
+
 fetchart:
   auto: yes
-  sources: filesystem amazon coverart albumart
+  sources: filesystem 
+#amazon albumart coverart
 
 ftintitle:
   auto: yes
@@ -97,11 +107,12 @@ ftintitle:
 lyrics:
   auto: yes
   fallback: ''
-  sources: '*'
+  sources: musixmatch lyricwiki google genius
 
 lastgenre:
   canoncical: yes
   source: album
+
 
 replaygain:
   auto: yes
